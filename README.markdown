@@ -16,6 +16,8 @@
 ### Here is a larger example
 
 ```scala
+    import edu.utexas.cs.jacobr.baysick.Environment
+
     object Lunar extends App with Environment {
       10 PRINT "Welcome to Baysick Lunar Lander v0.0.1"
       20 LET D = 100 // Distance
