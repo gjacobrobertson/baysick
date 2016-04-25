@@ -1,9 +1,23 @@
-name := "baysick"
+lazy val commonSettings = Seq(
+  version := "1.0-SNAPSHOT",
+  scalaVersion := "2.11.8",
+  addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full),
+  scalacOptions += "-deprecation",
+  scalacOptions += "-feature"
+)
 
-version := "1.0-SNAPSHOT"
+lazy val coreSettings = Seq(
+  libraryDependencies += "org.scalactic" %% "scalactic" % "2.2.6",
+  libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.6" % "test",
+  scalacOptions += "-language:postfixOps"
+)
 
-scalaVersion := "2.10.3"
 
-libraryDependencies += "org.scalatest" % "scalatest_2.10" % "2.0" % "test"
+lazy val macro = (project in file("macro")).
+  settings(commonSettings:_*).
+  settings(libraryDependencies <+= (scalaVersion)("org.scala-lang" % "scala-reflect" % _))
 
-libraryDependencies <+= scalaVersion("org.scala-lang" % "scala-compiler" % _ )
+lazy val root = (project in file(".")).
+  dependsOn(macro).
+  settings(commonSettings:_*).
+  settings(coreSettings:_*)

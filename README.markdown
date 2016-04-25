@@ -3,54 +3,50 @@
 ### Here is a small example:
 
 ```scala
-    object SquareRoot extends Baysick {
-      def main(args:Array[String]) = {
-        10 PRINT "Enter a number"
-        20 INPUT 'n
-        30 PRINT "Square root of " % "'n is " % SQRT('n)
-        40 END
-    
-        RUN
-      }
-    }
+    import edu.utexas.cs.jacobr.baysick.Script
+
+    new Script {
+      10 PRINT "Enter a number"
+      20 INPUT N
+      30 PRINT "Square root of " || "N is " || SQR(N)
+      40 END
+    }.run
 ```
 
 ### Here is a larger example
 
 ```scala
-    object Lunar extends Baysick {
-      def main(args:Array[String]) = {
-        10 PRINT "Welcome to Baysick Lunar Lander v0.0.1"
-        20 LET ('dist := 100)
-        30 LET ('v := 1)
-        40 LET ('fuel := 1000)
-        50 LET ('mass := 1000)
-    
-        60 PRINT "You are a in control of a lunar lander."
-        70 PRINT "You are drifting towards the surface of the moon."
-        80 PRINT "Each turn you must decide how much fuel to burn."
-        90 PRINT "To accelerate enter a positive number, to decelerate a negative"
-    
-        100 PRINT "Distance " % 'dist % "km, " % "Velocity " % 'v % "km/s, " % "Fuel " % 'fuel
-        110 INPUT 'burn
-        120 IF ABS('burn) <= 'fuel THEN 150
-        130 PRINT "You don't have that much fuel"
-        140 GOTO 100
-        150 LET ('v := 'v + 'burn * 10 / ('fuel + 'mass))
-        160 LET ('fuel := 'fuel - ABS('burn))
-        170 LET ('dist := 'dist - 'v)
-        180 IF 'dist > 0 THEN 100
-        190 PRINT "You have hit the surface"
-        200 IF 'v < 3 THEN 240
-        210 PRINT "Hit surface too fast (" % 'v % ")km/s"
-        220 PRINT "You Crashed!"
-        230 GOTO 250
-        240 PRINT "Well done"
-    
-        250 END
-    
-        RUN
-      }
+    object Lunar extends App with Environment {
+      10 PRINT "Welcome to Baysick Lunar Lander v0.0.1"
+      20 LET D = 100 // Distance
+      30 LET V = 1 // Velocity
+      40 LET F = 1000 // Fuel
+      50 LET M = 1000 // Mass
+
+      60 PRINT "You are a in control of a lunar lander."
+      70 PRINT "You are drifting towards the surface of the moon."
+      80 PRINT "Each turn you must decide how much fuel to burn."
+      90 PRINT "To accelerate enter a positive number, to decelerate a negative"
+
+      100 PRINT "Distance " || D || "km, " || "Velocity " || V || "km/s, " || "Fuel " || F
+      110 INPUT B //Burn
+      120 IF ABS(B) <= F THEN 150
+      130 PRINT "You don't have that much fuel"
+      140 GOTO 100
+      150 LET V = V + B * 10 / (F + M)
+      160 LET F = F - ABS(B)
+      170 LET D = D - V
+      180 IF D > 0 THEN 100
+      190 PRINT "You have hit the surface"
+      200 IF V < 3 THEN 240
+      210 PRINT "Hit surface too fast (" || V || ")km/s"
+      220 PRINT "You Crashed!"
+      230 GOTO 250
+      240 PRINT "Well done"
+
+      250 END
+
+      RUN
     }
 ```
 
@@ -60,6 +56,7 @@ Enjoy.
 
 ## License
 
-Copyright 2010-2014, [Michael Fogus](http://www.fogus.me)
+Original Work Copyright 2010-2014, [Michael Fogus](http://www.fogus.me)
+Modified Work Copyright 2016, Jacob Robertson
 Licensed under the MIT License.  
 Redistributions of files must retain the above copyright notice.
